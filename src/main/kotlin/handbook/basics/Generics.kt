@@ -20,15 +20,36 @@ fun <T> stackOf(vararg items: T): Stack<T> {
 }
 
 fun main(args: Array<String>) {
-    val stack = Stack(1, 2)
+    val stack = stackOf(1, 2)
     stack.push(3)
     println(stack.pop())
     println(stack.pop())
     println(stack.pop())
     println(stack.pop())
 
-    val stack2 = stackOf(1, 2, 3)
-    println(stack2.pop())
-    println(stack2.pop())
-    println(stack2.pop())
+    // Queue
+    val queue = queueOf(1, 2)
+    queue.enqueue(3)
+    println(queue.dequeue())
+    println(queue.dequeue())
+    println(queue.dequeue())
+    println(queue.dequeue())
+}
+
+class Queue<T>(vararg items: T) {
+    private val values = items.toMutableList()
+    fun enqueue(item: T) {
+        values.add(item)
+    }
+
+    fun dequeue(): T? {
+        if (values.isNotEmpty()) {
+            return values.removeAt(0)
+        }
+        return null
+    }
+}
+
+fun <T> queueOf(vararg items: T): Queue<T> {
+    return Queue(*items) // * is spread operator
 }
